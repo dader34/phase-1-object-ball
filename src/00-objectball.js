@@ -125,9 +125,8 @@ const gameObject = () =>{
     }
     return mainObj
 }
-
+const mainObj = gameObject()
 const numPointsScored = (player) =>{
-    const mainObj = gameObject()
     for(let team in mainObj){
         if(player in mainObj[team]['players']){
             return mainObj[team]['players'][player].points
@@ -137,7 +136,6 @@ const numPointsScored = (player) =>{
 }
 
 const shoeSize = (player) =>{
-    const mainObj = gameObject()
     for(let team in mainObj){
         if(player in mainObj[team]['players']){
             debugger;
@@ -148,7 +146,6 @@ const shoeSize = (player) =>{
 }
 
 const teamColors = (t) =>{
-    const mainObj = gameObject()
     // console.log(team == mainObj[0].teamName)
     for (team in mainObj){
         if(team.teamName === t){
@@ -159,12 +156,10 @@ const teamColors = (t) =>{
 }
 
 const teamNames = () =>{
-    const mainObj = gameObject()
     return [mainObj['home'].teamName,mainObj['away'].teamName]
 }
 
 const playerNumbers = (teamName) =>{
-    const mainObj = gameObject()
     let allplayerNums = []
     debugger
     for(let team in mainObj){
@@ -177,7 +172,6 @@ const playerNumbers = (teamName) =>{
 }
 
 const playerStats = (player) =>{
-    const mainObj = gameObject()
     for(let team in mainObj){
         if(player in mainObj[team]['players']){
             return mainObj[team]['players'][player]
@@ -187,7 +181,6 @@ const playerStats = (player) =>{
 }
 
 const bigShoeRebounds = () =>{
-    const mainObj = gameObject()
     let largestShoe = 0
     let rebounds = 0
     for(let team in mainObj){
@@ -205,6 +198,35 @@ const bigShoeRebounds = () =>{
     return rebounds
 }
 
+mostPointsScored = () =>{
+    let pointsCounter = 0
+    let playerWithMostPoints = ""
+    for(let team in mainObj){
+        for(let player in mainObj[team]['players']){
+            if(mainObj[team]['players'][player].points > pointsCounter){
+                pointsCounter = mainObj[team]['players'][player].points
+                playerWithMostPoints = player
+            }
+        }
+    }
+    
+    return playerWithMostPoints
+}
+
+const winningTeam = () =>{
+    let teamPoints = 0
+    let teamPoints2 = 0
+    for(let team in mainObj){
+        for(let player in mainObj[team].players){
+            if(team === "home"){
+                teamPoints +=  mainObj[team].players[player].points
+            }else{
+                teamPoints2 += mainObj[team].players[player].points
+            }
+        }
+    }
+    return (teamPoints > teamPoints2) ? mainObj['home'].teamName : mainObj['away'].teamName
+}
 
 //tests
 // console.log(numPointsScored("Brendan Haywood"))
@@ -214,3 +236,5 @@ const bigShoeRebounds = () =>{
 // console.log(playerNumbers("Brooklyn Nets"))
 // console.log(playerStats("Brendan Haywood"))
 // console.log(bigShoeRebounds())
+console.log(mostPointsScored())
+console.log(winningTeam())
